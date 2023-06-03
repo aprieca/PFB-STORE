@@ -1,0 +1,95 @@
+<div class="container form form-outline mt-5">
+  <div class="row justify-content-lg-center">
+    <div class="col-lg-6">
+        <form *ngIf="user" #registerForm="ngForm" name="registerForm" role="form" novalidate autocomplete="off">
+          <p class="h4 mb-3">Registro Usuarios</p>
+          <div class="form-group">
+            <label for="firstname" class="visually-hidden">Nombre</label>
+            <input name="firstname" [(ngModel)]="user.firstname" id="firstname"  #firstname="ngModel" placeholder="Nombre" type="text" class="form-control mb-2" minlength="3" maxlength="20" required>
+          </div>
+          <div *ngIf="(firstname.dirty&&firstname.errors)">
+            <small class="form-text text-danger" *ngIf="firstname.errors['required']">
+              Este campo es requerido</small>
+
+            <small class="form-text text-danger" *ngIf="firstname.errors['minlength']">
+              Este campo tiene que tener más de 3 caracteres</small>
+          </div>
+          <div class="form-group">
+            <label for="lastName" class="visually-hidden">Apellidos</label>
+            <input name="lastName" [(ngModel)]="user.lastname"  id="lastName" #lastname="ngModel" placeholder="Apellidos" type="text" class="form-control mb-2" minlength="3" required>
+          </div>
+          <div *ngIf="(lastname.dirty&&lastname.errors)">
+            <small class="form-text text-danger" *ngIf="lastname.errors['required']">
+              Este campo es requerido</small>
+
+            <small class="form-text text-danger" *ngIf="lastname.errors['minlength']">
+              Este campo tiene que tener más de 3 caracteres</small>
+          </div>
+          <div class="form-group">
+            <label for="phone" class="visually-hidden">Teléfono</label>
+            <input name="phone" [(ngModel)]="user.phone"  id="phone" #phone="ngModel" placeholder="Teléfono" type="tel" class="form-control mb-2" pattern="\d{9}" required>
+          </div>
+          <div *ngIf="(phone.dirty&&phone.errors)">
+            <small class="form-text text-danger" *ngIf="phone.errors['pattern']">
+              El teléfono es incorrecto, debe tener 9 dígitos</small>
+
+            <small class="form-text text-danger" *ngIf="phone.errors['required']">
+              Este campo es requerido</small>
+          </div>
+         <div class="form-group">
+           <label for="email" class="visually-hidden">Email</label>
+           <input name="email" [(ngModel)]="user.email"  id="email" #email="ngModel" placeholder="Email" type="email" class="form-control mb-2" pattern="\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})" required>
+         </div>
+          <div *ngIf="(email.dirty&&email.errors)">
+            <small class="form-text text-danger" *ngIf="email.errors['pattern']">
+              El Email es incorrecto, debe seguir un formato xxx@mail.xxx</small>
+
+            <small class="form-text text-danger" *ngIf="email.errors['required']">
+              Este campo es requerido</small>
+
+          </div>
+         <div class="form-group">
+           <label for="username" class="visually-hidden">Username</label>
+           <input name="username" [(ngModel)]="user.username"  id="username" #username="ngModel" placeholder="Username" type="text" class="form-control mb-2" minlength="3" required >
+         </div>
+          <div *ngIf="(username.dirty&&username.errors)">
+            <small class="form-text text-danger" *ngIf="username.errors['required']">
+              Este campo es requerido</small>
+
+            <small class="form-text text-danger" *ngIf="username.errors['minlength']">
+              Este campo tiene que tener más de 3 caracteres</small>
+          </div>
+          <div class="form-group">
+            <label for="password" class="visually-hidden">Contraseña</label>
+            <input name="password" [(ngModel)]="user.password"  id="password" #password="ngModel" placeholder="Contraseña" type="password" class="form-control mb-2" pattern="^.{6,}$" required>
+          </div>
+          <div *ngIf="(password.dirty&&password.errors)">
+            <small class="form-text text-danger" *ngIf="password.errors['pattern']">
+              La contraseña debe tener un mínimo de 6 carácteres</small>
+
+            <small class="form-text text-danger" *ngIf="password.errors['required']">
+              Este campo es requerido</small>
+          </div>
+          <div class="form-group">
+            <label for="passwordrepeat" class="visually-hidden">Repite Contraseña</label>
+            <input name="passwordrepeat" [(ngModel)]="user.passwordrepeat"  id="passwordrepeat" #passwordrepeat="ngModel" placeholder="Repite la Contraseña" type="password" class="form-control mb-2" required>
+          </div>
+
+          <div *ngIf="(password.dirty && password.value != passwordrepeat.value)">
+            <small class="form-text text-danger">
+              Las contraseñas no coinciden</small>
+          </div>
+
+          <div *ngIf="(passwordrepeat.dirty&&passwordrepeat.errors)">
+            <small class="form-text text-danger" *ngIf="passwordrepeat.errors['required']">
+              Este campo es requerido</small>
+          </div>
+          <input type="hidden" [(ngModel)]="user.role" name="role" value="USER" id="role" >
+          <div class="buttonsForm mt-3">
+            <button (click)="registerUser()" [disabled]="registerForm.invalid || password.value != passwordrepeat.value" class="btn btn-lg btn-primary col-12" name="submit" id="submit" type="submit" >Envíar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
