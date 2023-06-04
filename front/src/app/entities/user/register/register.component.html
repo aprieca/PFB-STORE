@@ -84,7 +84,6 @@
             <small class="form-text text-danger" *ngIf="passwordrepeat.errors['required']">
               Este campo es requerido</small>
           </div>
-          <input type="hidden" [(ngModel)]="user.role" name="role" value="USER" id="role" >
           <div class="buttonsForm mt-3">
             <button (click)="registerUser()" [disabled]="registerForm.invalid || password.value != passwordrepeat.value" class="btn btn-lg btn-primary col-12" name="submit" id="submit" type="submit" >Envíar</button>
           </div>

@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit{
   }
 
   initializeUser(){
-    this.user = new User("","","","",null,"","","");
+    this.user = new User("","","","",null,"","","USER");
   }
 
 }
