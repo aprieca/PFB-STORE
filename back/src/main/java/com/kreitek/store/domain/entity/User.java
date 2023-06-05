@@ -31,30 +31,23 @@ public class User implements UserDetails {
 
     @Column(nullable = false,length = 30)
     @Size(min = 3,max = 30)
-    @NotBlank
     private String username;
     @Column(nullable = false,length = 30)
     @Size(min = 3,max = 30)
-    @NotBlank
     private String firstname;
     @Column(nullable = false,length = 30)
     @Size(min = 3,max = 30)
-    @NotBlank
     private String lastname;
     @Column(nullable = false)
     @Email
-    @NotBlank
     private String email;
     @Column(nullable = false,length = 30)
     @Size(min = 6,max = 100)
-    @NotBlank
     @Pattern(regexp = "^.{6,}$")
     private String password;
     @Column(nullable = false,length = 14)
-    @Size(min = 8,max = 14)
-    @NotBlank
     private int phone;
-    @NotBlank
+
     private String role;
 
     @Override
