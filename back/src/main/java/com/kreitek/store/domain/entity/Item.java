@@ -27,6 +27,12 @@ public class Item {
     @JoinColumn(name="category_id",nullable = false)
     private Category category;
 
+    @Column(nullable = true)
+    private Double discount;
+
+    @Column(nullable = true,columnDefinition = "boolean default false")
+    private boolean favorite;
+
 
     public Item() {
     }
@@ -77,5 +83,21 @@ public class Item {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 }

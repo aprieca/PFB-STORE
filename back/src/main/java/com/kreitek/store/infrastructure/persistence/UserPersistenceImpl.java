@@ -21,4 +21,9 @@ public class UserPersistenceImpl implements UserPersistence {
     public Optional<User> getUserByUsername(String username) {
         return this.userRepository.findByUsername(username);
     }
+
+    @Override
+    public Optional<User> getUserById(Long id) {
+        return this.userRepository.findById(id);
+    }
 }

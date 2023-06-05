@@ -1,6 +1,10 @@
 package com.kreitek.store.domain.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -24,18 +29,39 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSequence")
     private Long id;
 
+    @Column(nullable = false,length = 30)
+    @Size(min = 3,max = 30)
+    @NotBlank
     private String username;
+    @Column(nullable = false,length = 30)
+    @Size(min = 3,max = 30)
+    @NotBlank
     private String firstname;
+    @Column(nullable = false,length = 30)
+    @Size(min = 3,max = 30)
+    @NotBlank
     private String lastname;
+    @Column(nullable = false)
+    @Email
+    @NotBlank
     private String email;
+    @Column(nullable = false,length = 30)
+    @Size(min = 6,max = 100)
+    @NotBlank
+    @Pattern(regexp = "^.{6,}$")
     private String password;
+    @Column(nullable = false,length = 14)
+    @Size(min = 8,max = 14)
+    @NotBlank
     private int phone;
+    @NotBlank
     private String role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(this.role));
     }
+
 
     @Override
     public String getPassword() {

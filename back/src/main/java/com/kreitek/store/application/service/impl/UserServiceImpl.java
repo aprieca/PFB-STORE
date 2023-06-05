@@ -6,13 +6,15 @@ import com.kreitek.store.application.service.UserService;
 import com.kreitek.store.domain.entity.User;
 import com.kreitek.store.domain.persistence.UserPersistence;
 import com.kreitek.store.application.dto.LoginDTO;
-import com.kreitek.store.application.securityconfig.AuthenticationResponse;
+import com.kreitek.store.infrastructure.security.AuthenticationResponse;
 import com.kreitek.store.application.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,15 +27,6 @@ public class UserServiceImpl implements UserService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     public AuthenticationResponse register(UserDTO userDto) {
-     /*   var user = User.builder()
-                .firstName(request.getFirstname())
-                .lastName(request.getLastname())
-                .email(request.getEmail())
-                .phone(request.getPhone())
-                .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
-                .build();*/
         User user = userMapper.toEntity(userDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userPersistence.saveUser(user);
@@ -57,4 +50,10 @@ public class UserServiceImpl implements UserService {
                 .token(jwtToken)
                 .build();
     }
+
+    @Override
+    public Optional<UserDTO> getUserById(Long id) {
+        return this.userPersistence.getUserById(id).map(userMapper::toDto);
+    }
+
 }

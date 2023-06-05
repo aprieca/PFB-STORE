@@ -10,6 +10,8 @@ public class ItemDTO implements Serializable {
     private byte[] image;
     private Long categoryId;
     private String categoryName;
+    private Double discount;
+    private boolean favorite;
 
     public ItemDTO() {
     }
@@ -68,5 +70,21 @@ public class ItemDTO implements Serializable {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 }

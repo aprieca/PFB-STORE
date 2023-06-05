@@ -8,6 +8,7 @@ import {ItemReactiveFormComponent} from "./entities/item/item-reactive-form/item
 import {CategoryFormComponent} from "./entities/category/category-form/category-form.component";
 import {LoginComponent} from "./entities/user/login/login.component";
 import {RegisterComponent} from "./entities/user/register/register.component";
+import {ShopComponent} from "./entities/shop/shop.component";
 
 const routes: Routes = [
   {path:'',component:HomeComponent,pathMatch:'full'},
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path:'items/:itemId',component:ItemFormComponent},
   {path:'items/reactive/:itemId',component:ItemReactiveFormComponent},
   {path:'login',component:LoginComponent},
-  {path:'register',component:RegisterComponent}];
+  {path:'register',component:RegisterComponent},
+  {path:'shop',component:ShopComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

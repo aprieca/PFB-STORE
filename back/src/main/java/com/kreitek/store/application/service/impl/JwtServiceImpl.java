@@ -41,6 +41,7 @@ public class JwtServiceImpl implements JwtService {
         extraClaims.put("authorities",userDetails.getAuthorities());
         if (userDetails instanceof User user) {
             extraClaims.put("firstname", user.getFirstname());
+            extraClaims.put("id", user.getId());
         }
         return Jwts
                 .builder()
