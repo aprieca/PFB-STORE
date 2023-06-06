@@ -17,7 +17,7 @@ export class ShopComponent implements OnInit {
   items$?: Observable<Item[]>
   favorite?: Favorite;
   favorites?:Favorite[];
-  userId?:string;
+  userId?:number;
 
   constructor(private itemService: ItemService,private shopService:ShopService,private authService:AuthService) {
 
@@ -30,6 +30,8 @@ export class ShopComponent implements OnInit {
       this.getFavoritesByUser(this.userId)
     }
 
+
+
   }
 
   getItemsByCategory() {
@@ -41,7 +43,7 @@ export class ShopComponent implements OnInit {
     )
   }
 
-  getFavoritesByUser(userId:string){
+  getFavoritesByUser(userId:number){
     this.shopService.getUserFavorites(userId).subscribe({
       next: (favorites) =>{
         this.favorites = favorites
@@ -54,6 +56,7 @@ export class ShopComponent implements OnInit {
   insertFavorite(favorite:Favorite):void{
     this.shopService.insertFavorite(favorite).subscribe({
       next:(favorite)=> {
+        this.favorites?.push(favorite)
         console.log("Favorite Inserted")
         console.log(favorite)
       },
@@ -63,12 +66,33 @@ export class ShopComponent implements OnInit {
     })
   }
 
-  createFavorite(itemId:string, userId:string):void{
+  createFavorite(itemId:number, userId:number):void{
     this.favorite = new Favorite(undefined,itemId,userId)
+    this.insertFavorite(this.favorite);
+  }
+  deleteFavorite(favoriteId :number){
+    this.shopService.deleteFavorite(favoriteId);
+    let index = this.favorites?.findIndex(favorite => favorite.id === favoriteId)
+    this.favorites?.splice(index!)
   }
 
   getUserId():void{
     this.userId = this.authService.getId();
+  }
+
+  isFavorite(itemId: number | undefined): boolean {
+    return <boolean>this.favorites?.some(favorite => favorite.itemId === itemId);
+  }
+
+  favoriteComposer(itemId: number,userId:number,favoriteId:number){
+    if(this.isFavorite(itemId)){
+      this.deleteFavorite(favoriteId)
+
+    }
+    else{
+      this.createFavorite(itemId,userId)
+    }
+
   }
 
 }

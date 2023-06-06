@@ -11,7 +11,7 @@ export class ShopService {
   constructor(private http:HttpClient) {
   }
 
-  getUserFavorites(userId : string):Observable<Favorite[]>{
+  getUserFavorites(userId : number):Observable<Favorite[]>{
     let endPoint : string = "http://localhost:8082/store/users/"+userId+"/favorites"
     return this.http.get<Favorite[]>(endPoint)
   }
@@ -21,8 +21,8 @@ export class ShopService {
     return this.http.post<Favorite>(endPoint,favorite)
   }
 
-  deleteFavorite(favoriteId : string):Observable<any>{
+  deleteFavorite(favoriteId : number):Observable<any>{
     let endPoint : string = "http://localhost:8082/store/favorites/"+favoriteId
-    return this.http.delete(favoriteId)
+    return this.http.delete(endPoint)
   }
 }

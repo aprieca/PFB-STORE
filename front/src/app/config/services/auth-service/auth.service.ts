@@ -46,7 +46,7 @@ export class AuthService {
     return decodedCookie.firstname;
   }
 
-  getId():string{
+  getId():number{
     let cookie : string = this.cookieService.get("auth");
     let decodedCookie:any = jwtDecode(cookie)
     return decodedCookie.id;
