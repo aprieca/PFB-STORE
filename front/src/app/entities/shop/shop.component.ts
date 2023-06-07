@@ -3,8 +3,8 @@ import {ItemService} from "../item/service/item.service";
 import {Item} from "../item/model/item.model";
 import {Observable, throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
-import {ShopService} from "./service/shop.service";
-import {Favorite} from "./model/favorite.model";
+import {FavoriteService} from "../favorite/service/favorite.service";
+import {Favorite} from "../favorite/model/favorite.model";
 import {AuthService} from "../../config/services/auth-service/auth.service";
 
 @Component({
@@ -19,7 +19,7 @@ export class ShopComponent implements OnInit {
   favorites?:Favorite[];
   userId?:number;
 
-  constructor(private itemService: ItemService,private shopService:ShopService,private authService:AuthService) {
+  constructor(private itemService: ItemService, private favoriteService:FavoriteService, private authService:AuthService) {
 
   }
 
@@ -29,9 +29,6 @@ export class ShopComponent implements OnInit {
     if(this.userId){
       this.getFavoritesByUser(this.userId)
     }
-
-
-
   }
 
   getItemsByCategory() {
@@ -44,17 +41,17 @@ export class ShopComponent implements OnInit {
   }
 
   getFavoritesByUser(userId:number){
-    this.shopService.getUserFavorites(userId).subscribe({
+    this.favoriteService.getUserFavorites(userId).subscribe({
       next: (favorites) =>{
         this.favorites = favorites
       } ,error:err => {
-        console.log("There was a problem recovering the favorites list.")
+        console.log("There was a problem recovering the favorite list.")
       }
     })
   }
 
   insertFavorite(favorite:Favorite):void{
-    this.shopService.insertFavorite(favorite).subscribe({
+    this.favoriteService.insertFavorite(favorite).subscribe({
       next:(favorite)=> {
         this.favorites?.push(favorite)
         console.log("Favorite Inserted")
@@ -71,7 +68,13 @@ export class ShopComponent implements OnInit {
     this.insertFavorite(this.favorite);
   }
   deleteFavorite(favoriteId :number){
-    this.shopService.deleteFavorite(favoriteId);
+    console.log("ejecutando borrado")
+    this.favoriteService.deleteFavorite(favoriteId).subscribe({
+      next:(favorite)=>{
+        console.log("Favorito Borrado Correctamente")
+      },
+      error:(err) =>console.log(err)
+    });
     let index = this.favorites?.findIndex(favorite => favorite.id === favoriteId)
     this.favorites?.splice(index!)
   }
@@ -81,18 +84,23 @@ export class ShopComponent implements OnInit {
   }
 
   isFavorite(itemId: number | undefined): boolean {
+    console.log("is favorite")
     return <boolean>this.favorites?.some(favorite => favorite.itemId === itemId);
   }
 
-  favoriteComposer(itemId: number,userId:number,favoriteId:number){
+  favoriteComposer(itemId: number,userId:number){
     if(this.isFavorite(itemId)){
-      this.deleteFavorite(favoriteId)
-
+      let favoriteId = this.getFavoriteIdByItemId(itemId)
+      console.log(favoriteId)
+      this.deleteFavorite(favoriteId!)
     }
     else{
       this.createFavorite(itemId,userId)
     }
-
+  }
+  getFavoriteIdByItemId(itemId:number){
+    let favorite = this.favorites?.find((favorite) => favorite.itemId === itemId);
+    return favorite?.id;
   }
 
 }

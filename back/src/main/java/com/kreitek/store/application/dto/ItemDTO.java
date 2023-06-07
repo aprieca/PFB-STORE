@@ -11,7 +11,6 @@ public class ItemDTO implements Serializable {
     private Long categoryId;
     private String categoryName;
     private Double discount;
-    private boolean favorite;
 
     public ItemDTO() {
     }
@@ -80,11 +79,4 @@ public class ItemDTO implements Serializable {
         this.discount = discount;
     }
 
-    public boolean isFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(boolean favorite) {
-        this.favorite = favorite;
-    }
 }

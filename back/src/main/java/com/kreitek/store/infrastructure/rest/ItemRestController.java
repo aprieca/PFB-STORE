@@ -36,6 +36,13 @@ public class ItemRestController {
     }
 
     @CrossOrigin
+    @GetMapping(value = "/items/batch", produces = "application/json")
+    ResponseEntity<List<ItemDTO>> getItemsInBatch(@RequestParam List<Long> ids) {
+        List<ItemDTO> items = this.itemService.getItemsInBatch(ids);
+        return new ResponseEntity<>(items, HttpStatus.OK);
+    }
+
+    @CrossOrigin
     @GetMapping(value = "/items", produces = "application/json")
     ResponseEntity<Page<ItemDTO>> getItemsByCriteriaPaged(@RequestParam(value = "filter", required = false) String filter, Pageable pageable) {
 

@@ -18,4 +18,6 @@ public interface ItemService {
 
     void deleteItem(Long itemId);
     Page<ItemDTO> getItemsByCriteriaStringPaged(Pageable pageable, String filter);
+
+    List<ItemDTO> getItemsInBatch(List<Long>ids);
 }

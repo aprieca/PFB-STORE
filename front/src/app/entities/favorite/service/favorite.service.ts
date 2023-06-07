@@ -6,7 +6,7 @@ import {Favorite} from "../model/favorite.model";
 @Injectable({
   providedIn: 'root'
 })
-export class ShopService {
+export class FavoriteService {
 
   constructor(private http:HttpClient) {
   }

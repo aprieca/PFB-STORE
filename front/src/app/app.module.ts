@@ -20,6 +20,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { LoginComponent } from './entities/user/login/login.component';
 import { RegisterComponent } from './entities/user/register/register.component';
 import { ShopComponent } from './entities/shop/shop.component';
+import { FavoriteComponent } from './entities/favorite/favorite.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { ShopComponent } from './entities/shop/shop.component';
     LoginComponent,
     RegisterComponent,
     ShopComponent,
+    FavoriteComponent,
   ],
   imports: [
     BrowserModule,

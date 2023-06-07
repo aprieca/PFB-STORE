@@ -5,7 +5,7 @@
         <a [routerLink]="['/product',item.id]">
           <div class="product-image">
             <img [src]="'data:image/jpeg;base64,'+item.image" class="card-img-top card-img-filter" alt="product-image">
-              <img class="favorite icon" src="../../../../assets/img/heart.svg" (click)="createFavorite(item.id!,userId!)" [ngClass]="{'favorite-true':isFavorite(item.id)}" alt="fav-icon">
+              <img class="favorite icon" src="../../../../assets/img/heart.svg" (click)="favoriteComposer(item.id!,userId!)" [ngClass]="{'favorite-true':isFavorite(item.id)}" alt="fav-icon">
             <div class="icon-row">
               <img class="icon me-2" src="../../../../assets/img/look.svg" alt="look-icon">
               <img class="icon me-2" src="../../../../assets/img/cart-new.svg" alt="cart-icon">

@@ -30,10 +30,6 @@ public class Item {
     @Column(nullable = true)
     private Double discount;
 
-    @Column(nullable = true,columnDefinition = "boolean default false")
-    private boolean favorite;
-
-
     public Item() {
     }
 
@@ -93,11 +89,4 @@ public class Item {
         this.discount = discount;
     }
 
-    public boolean isFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(boolean favorite) {
-        this.favorite = favorite;
-    }
 }
