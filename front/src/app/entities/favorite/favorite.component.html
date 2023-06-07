@@ -19,7 +19,7 @@
         <td>{{item.categoryName}}</td>
         <td>{{item.price}}</td>
         <td>{{item.discount}}</td>
-        <td><button>Comprar</button></td>
+        <td><button (click)="addToCartFixedQuantity(item.id!)">Añadir al Carrito</button></td>
         <td><button (click)="prepareFavoriteToDelete(item.id!)">Borrar</button></td>
       </tr>
       </tbody>

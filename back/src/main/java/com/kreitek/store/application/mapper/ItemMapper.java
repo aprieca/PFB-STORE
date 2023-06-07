@@ -7,6 +7,13 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring",uses = CategoryMapper.class)
 public interface ItemMapper extends EntityMapper<ItemDTO, Item> {
+
+    default Item fromid(Long id) {
+        if (id == null) return null;
+        Item item = new Item();
+        item.setId(id);
+        return item;
+    }
     @Override
     @Mapping(source = "categoryId",target = "category")
     Item toEntity(ItemDTO dto);
