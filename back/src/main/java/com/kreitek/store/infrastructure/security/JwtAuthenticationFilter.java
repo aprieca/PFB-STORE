@@ -1,4 +1,4 @@
-package com.kreitek.store.application.securityconfig;
+package com.kreitek.store.infrastructure.security;
 
 import com.kreitek.store.application.service.JwtService;
 import jakarta.servlet.FilterChain;

@@ -34,6 +34,11 @@ public class ItemPersistenceImpl implements ItemPersistence {
     }
 
     @Override
+    public List<Item> getItemsInBatch(List<Long> ids) {
+        return this.itemRepository.findByIdIn(ids);
+    }
+
+    @Override
     public List<Item> getAllItemsByCategory(Long categoryId) {
         return this.itemRepository.findAllByCategoryId(categoryId);
     }
@@ -42,6 +47,7 @@ public class ItemPersistenceImpl implements ItemPersistence {
 
         return this.itemRepository.findById(itemId);
     }
+
 
     @Override
     public Item insertItem(Item itemId) {

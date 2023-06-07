@@ -46,6 +46,12 @@ export class AuthService {
     return decodedCookie.firstname;
   }
 
+  getId():number{
+    let cookie : string = this.cookieService.get("auth");
+    let decodedCookie:any = jwtDecode(cookie)
+    return decodedCookie.id;
+  }
+
   setName(name:string):void{
     this.name.next(name);
   }

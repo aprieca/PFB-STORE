@@ -1,4 +1,4 @@
-package com.kreitek.store.application.securityconfig;
+package com.kreitek.store.infrastructure.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

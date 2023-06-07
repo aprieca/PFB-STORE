@@ -10,6 +10,7 @@ public class ItemDTO implements Serializable {
     private byte[] image;
     private Long categoryId;
     private String categoryName;
+    private Double discount;
 
     public ItemDTO() {
     }
@@ -69,4 +70,13 @@ public class ItemDTO implements Serializable {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
 }

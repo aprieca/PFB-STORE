@@ -19,6 +19,17 @@ export class ItemService {
     return this.http.get<Item[]>(urlEndpoint);
   }
 
+  public getAllItemsByCategoryId(categoryId:number):Observable<Item[]>{
+    let urlEndpoint: string = "http://localhost:8082/store/categories/"+categoryId+"/items"
+    return this.http.get<Item[]>(urlEndpoint);
+  }
+
+  public getItemsBatch(itemIds:number[]):Observable<Item[]>{
+    let ids = itemIds.join()
+    let urlEndpoint: string = "http://localhost:8082/store/items/batch?ids="+ids;
+    return this.http.get<Item[]>(urlEndpoint);
+  }
+
   public deleteItem(itemIdToDelete: number):Observable<any> {
     let urlEndpoint: string = "http://localhost:8082/store/items/"+itemIdToDelete;
     return this.http.delete<Item[]>(urlEndpoint);

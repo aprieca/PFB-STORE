@@ -1,4 +1,4 @@
-package com.kreitek.store.application.securityconfig;
+package com.kreitek.store.infrastructure.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

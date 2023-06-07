@@ -27,6 +27,8 @@ public class Item {
     @JoinColumn(name="category_id",nullable = false)
     private Category category;
 
+    @Column(nullable = true)
+    private Double discount;
 
     public Item() {
     }
@@ -78,4 +80,13 @@ public class Item {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
 }

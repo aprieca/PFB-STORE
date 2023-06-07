@@ -8,4 +8,5 @@ public interface UserPersistence {
 
     User saveUser(User user);
     Optional<User> getUserByUsername(String username);
+    Optional<User> getUserById(Long id);
 }

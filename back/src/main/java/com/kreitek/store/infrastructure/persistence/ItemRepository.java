@@ -11,4 +11,6 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item,Long>, JpaSpecificationExecutor<Item> {
 List<Item> findAllByCategoryId(Long id);
 
+List<Item> findByIdIn(List<Long>ids);
+
 }
