@@ -21,6 +21,8 @@ import { LoginComponent } from './entities/user/login/login.component';
 import { RegisterComponent } from './entities/user/register/register.component';
 import { ShopComponent } from './entities/shop/shop.component';
 import { FavoriteComponent } from './entities/favorite/favorite.component';
+import { ItemDetailComponent } from './entities/item/item-detail/item-detail.component';
+import { CartComponent } from './entities/cart/cart.component';
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import { FavoriteComponent } from './entities/favorite/favorite.component';
     RegisterComponent,
     ShopComponent,
     FavoriteComponent,
+    ItemDetailComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,

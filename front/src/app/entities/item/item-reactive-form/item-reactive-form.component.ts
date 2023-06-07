@@ -123,6 +123,7 @@ export class ItemReactiveFormComponent implements OnInit {
       description: this.itemForm?.get(['description'])!.value,
       price: this.itemForm?.get(['price'])!.value,
       image: this.item!.image,
+      stock: this.itemForm?.get(['stock'])!.value,
       categoryId: this.itemForm?.get(['category'])!.value.id,
       categoryName: this.itemForm?.get(['category'])!.value.name,
     };
@@ -189,7 +190,7 @@ export class ItemReactiveFormComponent implements OnInit {
   }
 
   private initializeItem(): void {
-    this.item = new Item(undefined, "", 0);
+    this.item = new Item(undefined, "", 0,0);
   }
 
   private handleError(err: any): void {

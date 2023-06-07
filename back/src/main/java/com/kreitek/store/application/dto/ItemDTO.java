@@ -12,6 +12,9 @@ public class ItemDTO implements Serializable {
     private String categoryName;
     private Double discount;
 
+    private byte[] imageBg;
+    private int stock;
+
     public ItemDTO() {
     }
 
@@ -79,4 +82,19 @@ public class ItemDTO implements Serializable {
         this.discount = discount;
     }
 
+    public byte[] getImageBg() {
+        return imageBg;
+    }
+
+    public void setImageBg(byte[] imageBg) {
+        this.imageBg = imageBg;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 }
