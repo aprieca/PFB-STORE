@@ -4,6 +4,9 @@ import {Observable, throwError} from "rxjs";
 import {Item} from "../model/item.model";
 import {ActivatedRoute} from "@angular/router";
 import {catchError} from "rxjs/operators";
+import {CartItem} from "../../cart/model/cart.model";
+import {CartService} from "../../cart/cart.service";
+import {AuthService} from "../../../config/services/auth-service/auth.service";
 
 @Component({
   selector: 'app-item-detail',
@@ -14,8 +17,13 @@ export class ItemDetailComponent implements OnInit {
 
   item$!: Observable<Item>
   itemId?: string;
+  cartItem! :CartItem;
+  userId?: number;
 
-  constructor(private itemService: ItemService, private activatedRoute: ActivatedRoute) {
+  quantity:number=1;
+
+  constructor(private itemService: ItemService, private activatedRoute: ActivatedRoute,private cartService:CartService,
+              private authService:AuthService) {
   }
 
   ngOnInit(): void {
@@ -28,9 +36,22 @@ export class ItemDetailComponent implements OnInit {
         }),
       );
     }
+    this.getUserId();
   }
 
-  protected readonly parseInt = parseInt;
+  addToCart(itemId:number,image:string,name:string,categoryName:string,price:number):void{
+    this.cartItem = new CartItem(itemId,this.userId!,this.quantity,image,name,categoryName,price)
+    this.cartService.addToCart(this.cartItem).subscribe({
+      next:(response)=>console.log(response),
+      error:(err)=>console.log(err)
+    })
+    console.log("item added to cart")
+  }
+
+  getUserId(): void {
+    this.userId = this.authService.getId();
+  }
+
 }
 
 

@@ -19,12 +19,14 @@
         <td>{{item.categoryName}}</td>
         <td>{{item.price}}</td>
         <td>{{item.discount}}</td>
-        <td><button (click)="addToCartFixedQuantity(item.id!)">Añadir al Carrito</button></td>
+        <td><button (click)="addToCartFixedQuantity(item.id!,item.image!,item.name,item.categoryName!,item.price)">Añadir al Carrito</button></td>
         <td><button (click)="prepareFavoriteToDelete(item.id!)">Borrar</button></td>
       </tr>
       </tbody>
     </table>
   </div>
   <div *ngIf="deleted">Favorito borrado correctamente</div>
+
 </div>
+
 

@@ -6,6 +6,8 @@ import {catchError} from "rxjs/operators";
 import {FavoriteService} from "../favorite/service/favorite.service";
 import {Favorite} from "../favorite/model/favorite.model";
 import {AuthService} from "../../config/services/auth-service/auth.service";
+import {CartService} from "../cart/cart.service";
+import {CartItem} from "../cart/model/cart.model";
 
 @Component({
   selector: 'app-shop',
@@ -18,9 +20,10 @@ export class ShopComponent implements OnInit {
   favorite?: Favorite;
   favorites?:Favorite[];
   userId?:number;
+  cartItem! :CartItem;
 
-  constructor(private itemService: ItemService, private favoriteService:FavoriteService, private authService:AuthService) {
-
+  constructor(private itemService: ItemService, private favoriteService:FavoriteService, private authService:AuthService
+  ,private cartService:CartService) {
   }
 
   ngOnInit(): void {
@@ -61,6 +64,15 @@ export class ShopComponent implements OnInit {
         console.log("There was a problem inserting favorite")
       }
     })
+  }
+
+  addToCartFixedQuantity(itemId:number,image:string,name:string,categoryName:string,price:number):void{
+    this.cartItem = new CartItem(itemId,this.userId!,1,image,name,categoryName,price)
+    this.cartService.addToCart(this.cartItem).subscribe({
+      next:(response)=>console.log(response),
+      error:(err)=>console.log(err)
+    })
+    console.log("item addeded to cart")
   }
 
   createFavorite(itemId:number, userId:number):void{

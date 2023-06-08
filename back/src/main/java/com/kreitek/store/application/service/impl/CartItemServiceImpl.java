@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,4 +40,17 @@ public class CartItemServiceImpl implements CartItemService {
     public void deleteAllCartItemsByUserId(Long userId) {
         this.cartItemPersistence.deleteAllCartItemsByUserId(userId);
     }
+
+    @Override
+    public CartItemDTO updateCartItem(CartItemDTO cartItemDTO) {
+        CartItem cartItem = this.cartItemMapper.toEntity(cartItemDTO);
+        this.cartItemPersistence.saveCartItem(cartItem);
+        return this.cartItemMapper.toDto(cartItem);
+    }
+
+    @Override
+    public Optional<CartItemDTO> findCartItemById(Long cartItemId) {
+        return this.cartItemPersistence.findCartItemById(cartItemId).map(cartItemMapper::toDto);
+    }
+
 }

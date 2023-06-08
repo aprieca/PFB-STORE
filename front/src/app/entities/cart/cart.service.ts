@@ -32,4 +32,9 @@ export class CartService {
     let endpoint = "http://localhost:8082/store/users/"+userId+"/cart/items"
     return this.http.delete<CartItem>(endpoint);
   }
+
+  updateCartItemQuantity(cartItemId:number,quantity:number){
+    let endpoint = "http://localhost:8082/store/cart/items/"+cartItemId+"/quantity/"+quantity
+    return this.http.patch<CartItem>(endpoint,null);
+  }
 }

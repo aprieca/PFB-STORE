@@ -48,8 +48,8 @@ export class FavoriteComponent implements OnInit {
     });
   }
 
-  addToCartFixedQuantity(itemId:number):void{
-    this.cartItem = new CartItem(itemId,this.userId!,1)
+  addToCartFixedQuantity(itemId:number,image:string,name:string,categoryName:string,price:number):void{
+    this.cartItem = new CartItem(itemId,this.userId!,1,image,name,categoryName,price)
     this.cartService.addToCart(this.cartItem).subscribe({
       next:(response)=>console.log(response),
       error:(err)=>console.log(err)
