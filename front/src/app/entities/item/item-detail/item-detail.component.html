@@ -1,0 +1,73 @@
+
+
+<ng-container *ngIf="item$|async as product;else loading">
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-6 product-col">
+  <!--      <div class="product-image-big">
+          <img [src]="product.imageBg" alt="image-big">
+        </div>-->
+      </div>
+      <div class="col-6 product-col">
+        <div class="product-info">
+          <h2>{{product.name}}</h2>
+        </div>
+        <div class="product-price mt-4">
+          <span class="fw-bold"
+                [ngClass]="{'discount-old':product.discount}">{{product.price|currency:'EUR':'symbol'}}</span>
+          <span
+            class="discount-new fw-bold" *ngIf="product.discount">{{product.discount|currency:'EUR':'symbol'}}</span>
+        </div>
+        <div class="product-description mt-4">
+          <p class="fw-bold">Descripción:</p>
+          <p>{{product.description}}</p>
+        </div>
+        <div class="product-image-small">
+          <p class="fw-bold">Color:</p>
+         <!-- <p>{{product.color}}</p>-->
+          <img [src]="'data:image/jpeg;base64,'+product.image" alt="image-small">
+        </div>
+        <div class="product-size mb-2">
+          <span class="fw-bold me-1">Talla:</span>
+          <span>Elige una talla</span>
+          <div class="product-size-selector">
+          <!--  <div class="product-size-button mt-4" *ngFor="let size of product.size | keyvalue"
+                 [ngClass]="{'not-available':size.value === 'not-available'} ">
+              <button>{{size.key}}</button>
+            </div>-->
+          </div>
+        </div>
+       <div *ngIf="product.stock > 0 else outOfStock" class="product-buy mt-4">
+          <span class="fw-bold me-1">Stock:</span>
+          <span>disponemos de {{product.stock}} unidades a este precio.</span>
+         <div>
+           <input type="number" [(ngModel)]="quantity">
+         </div>
+          <div class="mt-4">
+            <button class="me-2 mb-5" (click)="addToCart(product.id!,product.image!,product.name,product.categoryName!,product.price)"><span>Añadir al Carrito</span></button>
+          </div>
+        </div>
+        <ng-template #outOfStock>
+          <div class="product-buy mt-4">
+            <span class="fw-bold me-1">Stock:</span>
+            <span>Producto sin stock</span>
+            <div class="mt-4">
+              <button class="me-2 mb-5" disabled><span>No disponible</span></button>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="spinner-grow spinner-grow-sm"></div>
+</ng-template>
+
+<p>product works</p>
+
+
+
+
+

@@ -7,12 +7,15 @@ export class Item {
   categoryName?:string;
   description?: string;
   image?: string;
-  favorite?:boolean;
+  imageBg?:string;
+  stock: number;
 
 
 
-  constructor(id: number | undefined, name: string, price: number, categoryId?: number, categoryName?: string, description?: string, image?: string,
-  discount?:number,favorite?:boolean) {
+
+
+  constructor(id: number | undefined, name: string, price: number,stock:number, categoryId?: number, categoryName?: string, description?: string, image?: string,
+  discount?:number,imageBg?:string) {
     this.id = id;
     this.name = name;
     this.price = price;
@@ -21,6 +24,8 @@ export class Item {
     this.description = description;
     this.image = image;
     this.discount = discount;
-    this.favorite = favorite;
+    this.imageBg = imageBg
+    this.stock = stock;
+
   }
 }

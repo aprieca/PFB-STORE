@@ -22,7 +22,9 @@ public class Item {
     private Double price;
     @Lob
     private byte[] image;
-
+    @Lob
+    private byte[] imageBg;
+    private int stock;
     @ManyToOne()
     @JoinColumn(name="category_id",nullable = false)
     private Category category;
@@ -89,4 +91,19 @@ public class Item {
         this.discount = discount;
     }
 
+    public byte[] getImageBg() {
+        return imageBg;
+    }
+
+    public void setImageBg(byte[] imageBg) {
+        this.imageBg = imageBg;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 }

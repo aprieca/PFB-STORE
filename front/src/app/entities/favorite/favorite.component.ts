@@ -5,6 +5,8 @@ import { Favorite } from "./model/favorite.model";
 import { AuthService } from "../../config/services/auth-service/auth.service";
 import { Item } from "../item/model/item.model";
 import { ItemService } from "../item/service/item.service";
+import {CartService} from "../cart/cart.service";
+import {CartItem} from "../cart/model/cart.model";
 
 
 @Component({
@@ -18,13 +20,11 @@ export class FavoriteComponent implements OnInit {
   itemIds?: number[] = [];
   items$!: Observable<Item[]>;
   favorites?: Favorite[];
+  cartItem! :CartItem;
   deleted: boolean = false;
 
-  constructor(
-    private favoriteService: FavoriteService,
-    private authService: AuthService,
-    private itemService: ItemService,
-  ) {}
+  constructor(private favoriteService: FavoriteService, private authService: AuthService, private itemService: ItemService,
+  private cartService:CartService) {}
 
   ngOnInit(): void {
     this.getUserId();
@@ -46,6 +46,15 @@ export class FavoriteComponent implements OnInit {
         console.log("There was a problem recovering the favorite list.")
       }
     });
+  }
+
+  addToCartFixedQuantity(itemId:number,image:string,name:string,categoryName:string,price:number):void{
+    this.cartItem = new CartItem(itemId,this.userId!,1,image,name,categoryName,price)
+    this.cartService.addToCart(this.cartItem).subscribe({
+      next:(response)=>console.log(response),
+      error:(err)=>console.log(err)
+    })
+    console.log("item added to cart")
   }
 
   loadItemsBatch(itemIds: number[]) {

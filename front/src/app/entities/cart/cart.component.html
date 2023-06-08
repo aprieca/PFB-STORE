@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row">
+    <table>
+      <thead>
+      <tr>
+        <th>Imagen</th>
+        <th>Producto</th>
+        <th>Categoría</th>
+        <th>Cantidad</th>
+        <th>Precio</th>
+        <th>Comprar</th>
+        <th>Eliminar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let cartItem of cartItems">
+        <td><img class="product-image" [src]="'data:image/jpeg;base64,'+cartItem.image"></td>
+        <td>{{cartItem.name}}</td>
+        <td>{{cartItem.categoryName}}</td>
+        <td><button (click)="updateQuantity(cartItem.id!,(cartItem.quantity+1))">Aumentar</button><input type="text" value="{{cartItem.quantity}}">
+          <button (click)="updateQuantity(cartItem.id!,(cartItem.quantity-1))">Disminuir</button></td>
+        <td>{{cartItem.price}}</td>
+       <td><button>Tramitar Pedido</button></td>
+        <td><button (click)="deleteCartItem(cartItem.id!)">Eliminar</button></td>
+      </tr>
+      </tbody>
+    </table>
+    <div>
+    </div>
+  </div>
+
+  <div *ngIf="cartItems.length>0">
+    <p>Precio total: {{totalPrice}}</p>
+     <button (click)="deleteAllCartItems(userId!)">Vaciar Carrito</button></div>
+
+
+</div>
+
+
+

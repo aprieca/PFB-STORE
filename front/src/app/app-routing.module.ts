@@ -10,6 +10,8 @@ import {LoginComponent} from "./entities/user/login/login.component";
 import {RegisterComponent} from "./entities/user/register/register.component";
 import {ShopComponent} from "./entities/shop/shop.component";
 import {FavoriteComponent} from "./entities/favorite/favorite.component";
+import {ItemDetailComponent} from "./entities/item/item-detail/item-detail.component";
+import {CartComponent} from "./entities/cart/cart.component";
 
 const routes: Routes = [
   {path:'',component:HomeComponent,pathMatch:'full'},
@@ -19,10 +21,12 @@ const routes: Routes = [
   {path:'categories/:categoryId',component:CategoryFormComponent},
   {path:'items/:itemId',component:ItemFormComponent},
   {path:'items/reactive/:itemId',component:ItemReactiveFormComponent},
+  {path:'product/:itemId',component:ItemDetailComponent},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'shop',component:ShopComponent},
-  {path:'wishlist',component:FavoriteComponent}];
+  {path:'wishlist',component:FavoriteComponent},
+  {path:'cart',component:CartComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

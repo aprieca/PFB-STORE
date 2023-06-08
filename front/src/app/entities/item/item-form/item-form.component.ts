@@ -87,7 +87,7 @@ export class ItemFormComponent implements OnInit {
   }
 
   private initializeItem() {
-    this.item = new Item(undefined, "", 0);
+    this.item = new Item(undefined, "",0,0);
   }
 
   public getAllCategories(event?: any): void {
