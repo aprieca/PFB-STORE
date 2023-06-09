@@ -1578,3 +1578,92 @@ Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection wa
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:678)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
 	... 94 more
+2023-06-09 13:28:06 jdbc[55]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-214]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:190)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:132)
+	at org.h2.Driver.connect(Driver.java:59)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:121)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:733)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:712)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection was not closed by the application and is garbage collected [90018-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:678)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	... 16 more
+2023-06-09 15:18:35 jdbc[66]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-214]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:190)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:132)
+	at org.h2.Driver.connect(Driver.java:59)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:121)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:733)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:712)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection was not closed by the application and is garbage collected [90018-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:678)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	... 16 more
+2023-06-09 16:08:55 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE DROP [*]CART_ITEMS"; expected "., ADD, SET, RENAME, DROP, ALTER"; SQL statement:
+ALTER TABLE DROP CART_ITEMS [42001-214]
+2023-06-09 20:04:50 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CART_ITEMS" not found; SQL statement:
+DROP TABLE CART_ITEMS [42102-214]
+2023-06-09 20:05:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CART_ITEMS" not found; SQL statement:
+select c1_0.id,c1_0.category_name,c1_0.image,c1_0.item_id,c1_0.name,c1_0.price,c1_0.quantity,c1_0.user_id from cart_items c1_0 where c1_0.user_id=? [42102-214]
+2023-06-09 20:05:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CART_ITEMS" not found; SQL statement:
+select c1_0.id,c1_0.category_name,c1_0.image,c1_0.item_id,c1_0.name,c1_0.price,c1_0.quantity,c1_0.user_id from cart_items c1_0 where c1_0.user_id=? [42102-214]
+2023-06-09 20:05:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CART_ITEMS" not found; SQL statement:
+select c1_0.id,c1_0.category_name,c1_0.image,c1_0.item_id,c1_0.name,c1_0.price,c1_0.quantity,c1_0.user_id from cart_items c1_0 where c1_0.user_id=? [42102-214]
+2023-06-09 20:05:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CART_ITEMS" not found; SQL statement:
+select c1_0.id,c1_0.category_name,c1_0.image,c1_0.item_id,c1_0.name,c1_0.price,c1_0.quantity,c1_0.user_id from cart_items c1_0 where c1_0.user_id=? [42102-214]
+2023-06-09 20:05:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CART_ITEMS" not found; SQL statement:
+select c1_0.id,c1_0.category_name,c1_0.image,c1_0.item_id,c1_0.name,c1_0.price,c1_0.quantity,c1_0.user_id from cart_items c1_0 where c1_0.user_id=? [42102-214]
+2023-06-09 20:05:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CART_ITEMS" not found; SQL statement:
+select c1_0.id,c1_0.category_name,c1_0.image,c1_0.item_id,c1_0.name,c1_0.price,c1_0.quantity,c1_0.user_id from cart_items c1_0 where c1_0.user_id=? [42102-214]
+2023-06-09 20:05:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CART_ITEMS" not found; SQL statement:
+select c1_0.id,c1_0.category_name,c1_0.image,c1_0.item_id,c1_0.name,c1_0.price,c1_0.quantity,c1_0.user_id from cart_items c1_0 where c1_0.user_id=? [42102-214]
+2023-06-09 20:05:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CART_ITEMS" not found; SQL statement:
+select c1_0.id,c1_0.category_name,c1_0.image,c1_0.item_id,c1_0.name,c1_0.price,c1_0.quantity,c1_0.user_id from cart_items c1_0 where c1_0.user_id=? [42102-214]
+2023-06-09 20:05:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CART_ITEMS" not found; SQL statement:
+select c1_0.id,c1_0.category_name,c1_0.image,c1_0.item_id,c1_0.name,c1_0.price,c1_0.quantity,c1_0.user_id from cart_items c1_0 where c1_0.user_id=? [42102-214]
+2023-06-09 20:05:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CART_ITEMS" not found; SQL statement:
+select c1_0.id,c1_0.category_name,c1_0.image,c1_0.item_id,c1_0.name,c1_0.price,c1_0.quantity,c1_0.user_id from cart_items c1_0 where c1_0.user_id=? [42102-214]
+2023-06-09 20:05:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CART_ITEMS" not found; SQL statement:
+select c1_0.id,c1_0.category_name,c1_0.image,c1_0.item_id,c1_0.name,c1_0.price,c1_0.quantity,c1_0.user_id from cart_items c1_0 where c1_0.user_id=? [42102-214]
+2023-06-09 20:05:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CART_ITEMS" not found; SQL statement:
+select c1_0.id,c1_0.category_name,c1_0.image,c1_0.item_id,c1_0.name,c1_0.price,c1_0.quantity,c1_0.user_id from cart_items c1_0 where c1_0.user_id=? [42102-214]
+2023-06-09 20:05:15 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CART_ITEMS" not found; SQL statement:
+SELECT * FROM CART_ITEMS [42102-214]

@@ -2,6 +2,7 @@ package com.kreitek.store.domain.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,24 +22,28 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cartItemsSequence")
     private Long id;
 
-    @NotNull
     @ManyToOne
-    @JoinColumn(name="item_id",unique = true)
+    @JoinColumn(name="item_id",unique = true,nullable = false)
     private Item item;
 
-    @NotNull
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id",nullable = false)
     private User user;
     @NotNull
+    @Column(nullable = false,length = 100)
     private String name;
     @NotNull
+    @Column(nullable = false,length = 100)
     private String categoryName;
     @Lob
     private byte[] image;
     @NotNull
+    @Positive
+    @Column(nullable = false)
     private int quantity;
     @NotNull
-    private int price;
+    @Positive
+    @Column(nullable = false)
+    private Double price;
 
 }

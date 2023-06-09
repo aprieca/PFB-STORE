@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <table>
+    <table class="table table-hover">
       <thead>
       <tr>
         <th>Imagen</th>
@@ -15,23 +15,35 @@
       <tbody>
       <tr *ngFor="let item of items$|async">
         <td><img class="product-image" [src]="'data:image/jpeg;base64,'+item.image"></td>
-        <td>{{item.name}}</td>
+        <td> <p-button [routerLink]="['/product',item.id]" icon="pi pi-search-plus" iconPos="right" label="{{item.name}}"></p-button></td>
         <td>{{item.categoryName}}</td>
-        <td>{{item.price}}</td>
-        <td>{{item.discount}}</td>
-        <td *ngIf="!checkIfAlreadyInCart(item.id!) else inCart"><button (click)="addToCartFixedQuantity(item.id!,item.image!,item.name,item.categoryName!,item.price)">Añadir al Carrito</button></td>
-        <td><button (click)="prepareFavoriteToDelete(item.id!)">Borrar</button></td>
+        <td>{{item.price|currency:'EUR':'symbol'}}</td>
+        <ng-container *ngIf="item.discount, else noDiscount">
+          <td>{{item.discount|currency:'EUR':'symbol'}}</td>
+        </ng-container>
+        <ng-container *ngIf="!item.discount, else discountPrice ">
+          <td *ngIf="!checkIfAlreadyInCart(item.id!) else inCart"><p-button styleClass="p-button-success" pRipple label="Añadir al Carrito" icon="pi pi-cart-plus" iconPos="right"
+                                                                            (click)="addToCartFixedQuantity(item.id!,item.image!,item.name,item.categoryName!,item.price)"></p-button></td>
+        </ng-container>
+        <ng-template #discountPrice>
+          <td *ngIf="!checkIfAlreadyInCart(item.id!) else inCart"><p-button styleClass="p-button-success" pRipple label="Añadir al Carrito" icon="pi pi-cart-plus" iconPos="right"
+                                                                            (click)="addToCartFixedQuantity(item.id!,item.image!,item.name,item.categoryName!,item.price)"></p-button></td>
+        </ng-template>
+        <td><p-button styleClass="p-button-danger" label="Borrar" pRipple icon="pi pi-minus-circle" iconPos="right"  (click)="prepareFavoriteToDelete(item.id!)"></p-button></td>
       </tr>
       </tbody>
     </table>
   </div>
-  <div *ngIf="deleted">Favorito borrado correctamente</div>
-
-
 
   <ng-template #inCart>
-    <td><button disabled>Añadido al carrito</button></td>
+    <td><p-button styleClass="p-button-success" icon="pi pi-cart-plus" label="Ver en Carrito" [routerLink]="['/cart']"></p-button></td>
   </ng-template>
+
+  <ng-template #noDiscount>
+    <td>Descuento no disponible</td>
+  </ng-template>
+
+
 
 </div>
 

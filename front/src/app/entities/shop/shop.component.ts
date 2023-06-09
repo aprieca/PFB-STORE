@@ -8,7 +8,7 @@ import {Favorite} from "../favorite/model/favorite.model";
 import {AuthService} from "../../config/services/auth-service/auth.service";
 import {CartService} from "../cart/cart.service";
 import {CartItem} from "../cart/model/cart.model";
-import {includes} from "lodash";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-shop',
@@ -25,7 +25,7 @@ export class ShopComponent implements OnInit {
   cartItems? : CartItem[]
 
   constructor(private itemService: ItemService, private favoriteService:FavoriteService, private authService:AuthService
-  ,private cartService:CartService) {
+  ,private cartService:CartService,private messageService:MessageService) {
   }
 
   ngOnInit(): void {
@@ -80,12 +80,14 @@ export class ShopComponent implements OnInit {
   addToCartFixedQuantity(itemId:number,image:string,name:string,categoryName:string,price:number):void{
     if(this.cartItems?.some((item=>item.itemId == itemId))){
       console.log("el item ya exite")
+      this.showToastAlreadyInCart()
     }else{
       this.cartItem = new CartItem(itemId,this.userId!,1,image,name,categoryName,price)
       this.cartService.addToCart(this.cartItem).subscribe({
         next:(response)=>{
           console.log(response)
-          this.cartItems?.push(this.cartItem)}
+          this.cartItems?.push(this.cartItem)
+          this.showToastAddedToCart()}
         ,
         error:(err)=>console.log(err)
       })
@@ -131,6 +133,13 @@ export class ShopComponent implements OnInit {
   getFavoriteIdByItemId(itemId:number){
     let favorite = this.favorites?.find((favorite) => favorite.itemId === itemId);
     return favorite?.id;
+  }
+
+  showToastAddedToCart():void{
+    this.messageService.add({severity:'success', summary: 'Articulo Añadido al Carrito', detail: 'Articulo añadido al carrito correctamente'});
+  }
+  showToastAlreadyInCart():void{
+    this.messageService.add({severity:'warn', summary: 'Articulo ya existe en el carrito', detail: 'Este artículo ya ha sido añadido al carrito'});
   }
 
 }

@@ -72,7 +72,7 @@
           </div>
           <div class="form-group">
             <label for="passwordrepeat" class="visually-hidden">Repite Contraseña</label>
-            <input name="passwordrepeat" [(ngModel)]="user.passwordrepeat"  id="passwordrepeat" #passwordrepeat="ngModel" placeholder="Repite la Contraseña" type="password" class="form-control mb-2" required>
+            <input name="passwordrepeat" [(ngModel)]="passwordRepeat"  id="passwordrepeat" #passwordrepeat="ngModel" placeholder="Repite la Contraseña" type="password" class="form-control mb-2" required>
           </div>
 
           <div *ngIf="(password.dirty && password.value != passwordrepeat.value)">

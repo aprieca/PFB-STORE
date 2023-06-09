@@ -4,6 +4,7 @@ import {AuthService} from "../../config/services/auth-service/auth.service";
 import {CartItem} from "./model/cart.model";
 import * as _ from 'lodash';
 import {Router} from "@angular/router";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-cart',
@@ -15,14 +16,12 @@ export class CartComponent implements OnInit{
   userId?: number;
   cartItems :CartItem[]=[];
   quantity?:number;
-/*
-  totalPrice : number = 0;
-*/
   prices:number[] = [];
   totalPrice:number=0;
 
 
-  constructor(private cartService : CartService,private authService:AuthService,private router:Router) {
+  constructor(private cartService : CartService,private authService:AuthService,private router:Router,
+              private messageService:MessageService) {
   }
 
   ngOnInit(): void {
@@ -74,6 +73,7 @@ export class CartComponent implements OnInit{
       next:(response)=>{
         console.log("Cart Items Deleted")
         this.totalPrice = 0;
+        this.showToastDeleted()
         this.getUserCart()
       },
       error:(err)=>{
@@ -86,6 +86,7 @@ export class CartComponent implements OnInit{
     this.cartService.deleteAllUserCartItems(userId).subscribe({
       next:(response)=>{
         console.log("Cart Items Deleted")
+        this.showToastEmptyCart()
         this.totalPrice = 0;
         this.getUserCart()
       },
@@ -99,5 +100,15 @@ export class CartComponent implements OnInit{
     this.cartService.setCartData(this.cartItems);
     this.router.navigate(['order'])
   }
+
+  showToastDeleted():void{
+    this.messageService.add({severity:'info', summary: 'Artículo Borrado', detail: 'Artículo borrado correctamente'});
+  }
+
+  showToastEmptyCart():void{
+    this.messageService.add({severity:'warn', summary: 'Carrito Vaciado', detail: 'Carrito vaciado correctamente'});
+  }
+
+
 
 }

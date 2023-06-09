@@ -8,6 +8,7 @@ import {ItemService} from "../item/service/item.service";
 import {CartService} from "../cart/cart.service";
 import {CartItem} from "../cart/model/cart.model";
 import {Route, Router} from "@angular/router";
+import {MessageService} from "primeng/api";
 
 
 @Component({
@@ -23,11 +24,11 @@ export class FavoriteComponent implements OnInit {
   favorites?: Favorite[];
   cartItem!: CartItem;
   cartItems?: CartItem[]
-  deleted: boolean = false;
+/*  deleted: boolean = false;*/
   cartUpdated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
   constructor(private favoriteService: FavoriteService, private authService: AuthService, private itemService: ItemService,
-              private cartService: CartService,private router:Router) {
+              private cartService: CartService,private router:Router,private messageService:MessageService) {
   }
 
   ngOnInit(): void {
@@ -58,6 +59,7 @@ export class FavoriteComponent implements OnInit {
     this.cartService.addToCart(this.cartItem).subscribe({
       next: (response) =>{
         console.log(response)
+        this.showToastAddedToCart()
         this.router.navigate(['cart']) },
       error: (err) => console.log(err)
     })
@@ -80,7 +82,7 @@ export class FavoriteComponent implements OnInit {
     const favoriteId = this.getFavoriteIdByItemId(itemId);
     if (favoriteId) {
       this.deleteFavorite(favoriteId, itemId);
-      this.isDeleted();
+  /*    this.isDeleted();*/
     }
   }
 
@@ -88,7 +90,8 @@ export class FavoriteComponent implements OnInit {
     this.favoriteService.deleteFavorite(favoriteId).subscribe({
       next: (favorite) => {
         console.log("Favorito Eliminado");
-        this.isDeleted();
+      /*  this.isDeleted();*/
+        this.showToastDeletedFavorite()
         this.removeItemFromList(itemId)
       },
       error: (err) => {
@@ -106,9 +109,9 @@ export class FavoriteComponent implements OnInit {
     this.userId = this.authService.getId();
   }
 
-  isDeleted() {
+/*  isDeleted() {
     this.deleted = true;
-  }
+  }*/
 
   removeItemFromList(itemId: number) {
     this.items$ = this.items$.pipe(
@@ -121,6 +124,14 @@ export class FavoriteComponent implements OnInit {
     } else{
       return false
     }
+  }
+
+  showToastAddedToCart():void{
+    this.messageService.add({severity:'success', summary: 'Articulo Añadido al Carrito', detail: 'Articulo añadido al carrito correctamente'});
+  }
+
+  showToastDeletedFavorite():void{
+    this.messageService.add({severity:'success', summary: 'Artículo Favorito Borrado', detail: 'Articulo favorito borrado correctamente'});
   }
 
 }

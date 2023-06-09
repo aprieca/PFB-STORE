@@ -24,8 +24,11 @@ export class NavbarComponent implements OnInit{
     if( this.authenticated){
       this.role = this.authService.getRole().toString()
       console.log(this.role)
-      this.firstname = this.authService.getName()
     }
+  }
+
+  getName():string{
+    return this.authService.getName();
   }
 
   isAuthenticated():void{

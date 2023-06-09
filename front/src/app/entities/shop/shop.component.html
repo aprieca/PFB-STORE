@@ -1,4 +1,4 @@
-<div *ngIf="items$|async;else loading" class="container">
+<div *ngIf="items$;else loading" class="container">
   <div class="row">
     <div *ngFor="let item of items$ |async;" class="col-sm-6 col-md-4 col-lg-3">
       <div class="card mb-4 border-0">
@@ -6,8 +6,13 @@
             <img [src]="'data:image/jpeg;base64,'+item.image" class="card-img-top card-img-filter" alt="product-image">
               <img class="favorite icon" src="../../../../assets/img/heart.svg" (click)="favoriteComposer(item.id!,userId!)" [ngClass]="{'favorite-true':isFavorite(item.id)}" alt="fav-icon">
             <div class="icon-row">
-              <img class="icon me-2" src="../../../../assets/img/look.svg" alt="look-icon">
-              <img class="icon me-2" src="../../../../assets/img/cart-new.svg" alt="cart-icon" (click)="addToCartFixedQuantity(item.id!,item.image!,item.name,item.categoryName!,item.price)">
+              <img class="icon me-2" src="../../../../assets/img/look.svg" alt="look-icon" [routerLink]="['/product',item.id]">
+              <ng-container *ngIf="!item.discount, else discountPrice ">
+                <img class="icon me-2" src="../../../../assets/img/cart-new.svg" alt="cart-icon" (click)="addToCartFixedQuantity(item.id!,item.image!,item.name,item.categoryName!,item.price)">
+              </ng-container>
+              <ng-template #discountPrice>
+                <img class="icon me-2" src="../../../../assets/img/cart-new.svg" alt="cart-icon" (click)="addToCartFixedQuantity(item.id!,item.image!,item.name,item.categoryName!,item.discount!)">
+              </ng-template>
             </div>
           </div>
         <a [routerLink]="['/product',item.id]">
@@ -29,4 +34,5 @@
   <div class="spinner-grow spinner-grow-sm"></div>
 </ng-template>
 
-<pre>{{userId}}</pre>
+
+

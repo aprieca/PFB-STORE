@@ -16,6 +16,7 @@ import {HttpRequestInterceptor} from "./config/interceptors/http-request-interce
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ToastModule } from 'primeng/toast';
 
 import { LoginComponent } from './entities/user/login/login.component';
 import { RegisterComponent } from './entities/user/register/register.component';
@@ -24,6 +25,10 @@ import { FavoriteComponent } from './entities/favorite/favorite.component';
 import { ItemDetailComponent } from './entities/item/item-detail/item-detail.component';
 import { CartComponent } from './entities/cart/cart.component';
 import { OrderComponent } from './entities/order/order.component';
+import {MessageService} from "primeng/api";
+import {ButtonModule} from "primeng/button";
+import {RippleModule} from "primeng/ripple";
+
 
 
 @NgModule({
@@ -52,13 +57,16 @@ import { OrderComponent } from './entities/order/order.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    ToastModule,
+    ButtonModule,
+    RippleModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: HttpRequestInterceptor,
     multi: true
-  }],
+  },MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

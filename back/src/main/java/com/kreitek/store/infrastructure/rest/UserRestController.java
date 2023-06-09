@@ -2,7 +2,6 @@ package com.kreitek.store.infrastructure.rest;
 
 import com.kreitek.store.application.dto.LoginDTO;
 import com.kreitek.store.application.dto.UserDTO;
-import com.kreitek.store.domain.entity.User;
 import com.kreitek.store.infrastructure.security.AuthenticationResponse;
 import com.kreitek.store.application.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-public class UserController {
+public class UserRestController {
 
     private final UserService userService;
 

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Category} from "../model/category.model";
 import {CategoryService} from "../service/category.service";
+import { ToastModule } from 'primeng/toast';
 
 
 @Component({

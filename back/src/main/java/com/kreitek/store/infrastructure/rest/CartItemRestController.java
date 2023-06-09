@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-public class CartItemController {
+public class CartItemRestController {
 
     private final CartItemService cartItemService;
 

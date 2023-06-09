@@ -5,6 +5,7 @@ import {LoginService} from "./service/login.service";
 import {CookieService} from "ngx-cookie-service";
 import {AuthService} from "../../../config/services/auth-service/auth.service";
 import {Router} from "@angular/router";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit{
 
 
   constructor(private loginService:LoginService,private cookieService:CookieService, private authService:AuthService,
-              private router :Router) {
+              private router :Router,private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -33,11 +34,13 @@ export class LoginComponent implements OnInit{
           this.authService.setCookie(this.token);
           this.authService.checkAuthentication();
           this.authService.setName(this.authService.getName());
+          this.showToastLoggedIn();
           console.log(this.authService.getName());
-          this.router.navigate(['/'])
+          this.router.navigate(['/']);
         },
         error:(err) =>{
-          console.log(err)
+          this.showToastIncorrectLogin();
+          console.log(err);
         }
       })
     }
@@ -46,5 +49,13 @@ export class LoginComponent implements OnInit{
 
   private initializeLogin(): void {
     this.login = new Login("", "",);
+  }
+
+  showToastLoggedIn():void{
+    this.messageService.add({severity:'success', summary: 'Login Correcto', detail: 'Bienvenido '+this.authService.getName()});
+  }
+
+  showToastIncorrectLogin():void{
+    this.messageService.add({severity:'error', summary: 'Login Incorrecto', detail: 'Has introducido unas credenciales incorrectas'});
   }
 }

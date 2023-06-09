@@ -21,7 +21,6 @@ export class ItemDetailComponent implements OnInit {
   cartItems?: CartItem[]
   userId?: number;
   quantity: number = 1;
-  alreadyInCart : boolean = false;
 
   constructor(private itemService: ItemService, private activatedRoute: ActivatedRoute, private cartService: CartService,
               private authService: AuthService, private route: Router) {
@@ -31,6 +30,7 @@ export class ItemDetailComponent implements OnInit {
     this.itemId = this.activatedRoute.snapshot.paramMap.get('itemId') ?? undefined
     if (this.itemId) {
       this.checkIfAlreadyInCart()
+      console.log(this.itemId)
       this.item$ = this.itemService.getItemById(parseInt(this.itemId)).pipe(
         catchError(error => {
           console.log("Error al cargar los productos de la categoría", error)
@@ -41,6 +41,8 @@ export class ItemDetailComponent implements OnInit {
     this.getUserId();
     if (this.userId) {
       this.getCartItems(this.userId)
+      console.log(this.cartItems)
+
     }
   }
 
@@ -75,11 +77,11 @@ export class ItemDetailComponent implements OnInit {
     this.userId = this.authService.getId();
   }
 
-  checkIfAlreadyInCart() {
-    if (this.cartItems?.some((item => item.itemId == parseInt(this.itemId!)))) {
-      this.alreadyInCart = true;
+  checkIfAlreadyInCart() :boolean {
+    if (this.cartItems?.some((cartItem) => cartItem.itemId == parseInt(this.itemId!))) {
+      return true;
     }
-
+    return false;
   }
 }
 
