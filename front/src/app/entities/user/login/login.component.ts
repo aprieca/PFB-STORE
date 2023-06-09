@@ -4,7 +4,7 @@ import {Token} from "@angular/compiler";
 import {LoginService} from "./service/login.service";
 import {CookieService} from "ngx-cookie-service";
 import {AuthService} from "../../../config/services/auth-service/auth.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',

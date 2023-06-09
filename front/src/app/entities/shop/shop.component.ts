@@ -8,6 +8,7 @@ import {Favorite} from "../favorite/model/favorite.model";
 import {AuthService} from "../../config/services/auth-service/auth.service";
 import {CartService} from "../cart/cart.service";
 import {CartItem} from "../cart/model/cart.model";
+import {includes} from "lodash";
 
 @Component({
   selector: 'app-shop',
@@ -21,6 +22,7 @@ export class ShopComponent implements OnInit {
   favorites?:Favorite[];
   userId?:number;
   cartItem! :CartItem;
+  cartItems? : CartItem[]
 
   constructor(private itemService: ItemService, private favoriteService:FavoriteService, private authService:AuthService
   ,private cartService:CartService) {
@@ -31,6 +33,7 @@ export class ShopComponent implements OnInit {
     this.getUserId()
     if(this.userId){
       this.getFavoritesByUser(this.userId)
+      this.getCartItems(this.userId)
     }
   }
 
@@ -39,7 +42,15 @@ export class ShopComponent implements OnInit {
       catchError(error => {
         console.log("Error al cargar los productos de la categoría", error)
         return throwError(() => error);
-      }),
+      })
+    )
+  }
+
+  getCartItems(userId:number){
+    this.cartService.getUserCart(userId).subscribe({
+      next:(items)=>this.cartItems = items,
+      error:(err)=>console.log(err)
+      }
     )
   }
 
@@ -67,12 +78,19 @@ export class ShopComponent implements OnInit {
   }
 
   addToCartFixedQuantity(itemId:number,image:string,name:string,categoryName:string,price:number):void{
-    this.cartItem = new CartItem(itemId,this.userId!,1,image,name,categoryName,price)
-    this.cartService.addToCart(this.cartItem).subscribe({
-      next:(response)=>console.log(response),
-      error:(err)=>console.log(err)
-    })
-    console.log("item addeded to cart")
+    if(this.cartItems?.some((item=>item.itemId == itemId))){
+      console.log("el item ya exite")
+    }else{
+      this.cartItem = new CartItem(itemId,this.userId!,1,image,name,categoryName,price)
+      this.cartService.addToCart(this.cartItem).subscribe({
+        next:(response)=>{
+          console.log(response)
+          this.cartItems?.push(this.cartItem)}
+        ,
+        error:(err)=>console.log(err)
+      })
+      console.log("item addeded to cart")
+    }
   }
 
   createFavorite(itemId:number, userId:number):void{

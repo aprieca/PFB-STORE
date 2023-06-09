@@ -12,21 +12,25 @@ import {ShopComponent} from "./entities/shop/shop.component";
 import {FavoriteComponent} from "./entities/favorite/favorite.component";
 import {ItemDetailComponent} from "./entities/item/item-detail/item-detail.component";
 import {CartComponent} from "./entities/cart/cart.component";
+import {OrderComponent} from "./entities/order/order.component";
+import {AuthLogin} from "./config/services/auth-guards/login/login.guard";
+import {AuthRole} from "./config/services/auth-guards/role/role.guard";
 
 const routes: Routes = [
   {path:'',component:HomeComponent,pathMatch:'full'},
-  {path:'categories',component:CategoryListComponent},
-  {path:'items',component:ItemListComponent},
-  {path:'categories/:categoryId/items',component:ItemListComponent},
-  {path:'categories/:categoryId',component:CategoryFormComponent},
-  {path:'items/:itemId',component:ItemFormComponent},
-  {path:'items/reactive/:itemId',component:ItemReactiveFormComponent},
+  {path:'categories',canActivate:[AuthLogin,AuthRole],component:CategoryListComponent},
+  {path:'items',canActivate:[AuthLogin,AuthRole],component:ItemListComponent},
+  {path:'categories/:categoryId/items',canActivate:[AuthLogin,AuthRole],component:ItemListComponent},
+  {path:'categories/:categoryId',canActivate:[AuthLogin,AuthRole],component:CategoryFormComponent},
+  {path:'items/:itemId',canActivate:[AuthLogin,AuthRole],component:ItemFormComponent},
+  {path:'items/reactive/:itemId',canActivate:[AuthLogin,AuthRole],component:ItemReactiveFormComponent},
   {path:'product/:itemId',component:ItemDetailComponent},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'shop',component:ShopComponent},
-  {path:'wishlist',component:FavoriteComponent},
-  {path:'cart',component:CartComponent}];
+  {path:'wishlist',canActivate:[AuthLogin],component:FavoriteComponent},
+  {path:'cart',canActivate:[AuthLogin],component:CartComponent},
+  {path:'order',canActivate:[AuthLogin],component:OrderComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

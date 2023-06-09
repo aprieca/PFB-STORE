@@ -19,13 +19,19 @@
         <td>{{item.categoryName}}</td>
         <td>{{item.price}}</td>
         <td>{{item.discount}}</td>
-        <td><button (click)="addToCartFixedQuantity(item.id!,item.image!,item.name,item.categoryName!,item.price)">Añadir al Carrito</button></td>
+        <td *ngIf="!checkIfAlreadyInCart(item.id!) else inCart"><button (click)="addToCartFixedQuantity(item.id!,item.image!,item.name,item.categoryName!,item.price)">Añadir al Carrito</button></td>
         <td><button (click)="prepareFavoriteToDelete(item.id!)">Borrar</button></td>
       </tr>
       </tbody>
     </table>
   </div>
   <div *ngIf="deleted">Favorito borrado correctamente</div>
+
+
+
+  <ng-template #inCart>
+    <td><button disabled>Añadido al carrito</button></td>
+  </ng-template>
 
 </div>
 

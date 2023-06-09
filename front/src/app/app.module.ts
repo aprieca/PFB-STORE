@@ -23,6 +23,7 @@ import { ShopComponent } from './entities/shop/shop.component';
 import { FavoriteComponent } from './entities/favorite/favorite.component';
 import { ItemDetailComponent } from './entities/item/item-detail/item-detail.component';
 import { CartComponent } from './entities/cart/cart.component';
+import { OrderComponent } from './entities/order/order.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { CartComponent } from './entities/cart/cart.component';
     FavoriteComponent,
     ItemDetailComponent,
     CartComponent,
+    OrderComponent,
   ],
   imports: [
     BrowserModule,

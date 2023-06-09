@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {CartItem} from "./model/cart.model";
 
 @Injectable({
@@ -8,7 +8,16 @@ import {CartItem} from "./model/cart.model";
 })
 export class CartService {
 
+  private cartItemsSubject = new BehaviorSubject<CartItem[]>([]);
+  cartItems$ = this.cartItemsSubject.asObservable();
+
+
+
   constructor(private http: HttpClient) {
+  }
+
+  setCartData(cartItems:CartItem[]){
+    this.cartItemsSubject.next(cartItems)
   }
 
   addToCart(cartItem: CartItem): Observable<CartItem> {

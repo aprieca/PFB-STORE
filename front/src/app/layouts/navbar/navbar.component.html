@@ -5,42 +5,68 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-          <a class="nav-link" aria-current="page" [routerLink]="['']" >Inicio</a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-          <a class="nav-link" aria-current="page" [routerLink]="['shop']" >Tienda</a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-          <a class="nav-link" aria-current="page" [routerLink]="['categories']" >Categorías</a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-          <a class="nav-link" aria-current="page" [routerLink]="['items']" >Artículos</a>
-        </li>
-        <ng-container *ngIf="!authenticated; else authbar">
+      <ng-container *ngIf="authenticated else notauthenticated">
+        <ng-container *ngIf="role === 'ADMIN' else USER">
+          <div class="navbar-nav">
           <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-            <a class="nav-link" aria-current="page" [routerLink]="['login']" >Acceso</a>
+            <a class="nav-link" aria-current="page" [routerLink]="['']" >Inicio</a>
+          <li>
+            <a class="nav-link"><span class="nav-item">{{firstname}}</span></a>
           </li>
+          <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+            <a class="nav-link" aria-current="page" [routerLink]="['categories']" >Categorías</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+            <a class="nav-link" aria-current="page" [routerLink]="['items']" >Artículos</a>
+          </li>
+          <li>
+            <a class="nav-link"><span class="nav-item" [routerLink]="['']" (click)="logoutUser()">Logout</span></a>
+          </li>
+          </div>
         </ng-container>
-
-        <pre>{{authenticated}}</pre>
-          <ng-template #authbar>
-            <li>
-              <a class="nav-link"><span class="nav-item">{{firstname}}</span></a>
-            </li>
-            <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-              <a class="nav-link" aria-current="page" [routerLink]="['wishlist']" >Favoritos</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-              <a class="nav-link" aria-current="page" [routerLink]="['cart']" >Carrito</a>
-            </li>
-            <li>
-              <a class="nav-link"><span class="nav-item" [routerLink]="['']" (click)="logoutUser()">Logout</span></a>
-            </li>
-          </ng-template>
-      </div>
+      </ng-container>
     </div>
   </div>
 </nav>
+
+<ng-template #notauthenticated>
+  <div class="navbar-nav">
+  <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+    <a class="nav-link" aria-current="page" [routerLink]="['']" >Inicio</a>
+  </li>
+  <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+    <a class="nav-link" aria-current="page" [routerLink]="['shop']" >Tienda</a>
+  </li>
+  <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+    <a class="nav-link" aria-current="page" [routerLink]="['login']" >Acceso</a>
+  </li>
+  </div>
+</ng-template>
+
+<ng-template #USER>
+  <div class="navbar-nav">
+    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+      <a class="nav-link" aria-current="page" [routerLink]="['']" >Inicio</a>
+    </li>
+    <li>
+      <a class="nav-link"><span class="nav-item">{{firstname}}</span></a>
+    </li>
+    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+      <a class="nav-link" aria-current="page" [routerLink]="['shop']" >Tienda</a>
+    </li>
+    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+      <a class="nav-link" aria-current="page" [routerLink]="['wishlist']" >Favoritos</a>
+    </li>
+    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+      <a class="nav-link" aria-current="page" [routerLink]="['cart']" >Carrito</a>
+    </li>
+    <li>
+      <a class="nav-link"><span class="nav-item" [routerLink]="['']" (click)="logoutUser()">Logout</span></a>
+    </li>
+  </div>
+</ng-template>
+
+
+
+
 

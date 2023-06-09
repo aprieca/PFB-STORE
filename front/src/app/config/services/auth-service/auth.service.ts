@@ -13,6 +13,7 @@ export class AuthService {
   name  = new BehaviorSubject("")
 
   cookie : string = this.cookieService.get("auth");
+  authorities : any[]=[];
 
 
   constructor(private cookieService : CookieService) {
@@ -38,6 +39,13 @@ export class AuthService {
     let decodedCookie:any = jwtDecode(this.cookie)
     console.log(decodedCookie.sub)
     return decodedCookie.sub
+  }
+
+  getRole(): any[]{
+    let decodedCookie:any = jwtDecode(this.cookie)
+    console.log(decodedCookie.sub)
+    this.authorities= decodedCookie.authorities
+    return this.authorities.map(authorities=>authorities.authority)
   }
 
   getName():string{

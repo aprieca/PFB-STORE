@@ -40,10 +40,10 @@
        <div *ngIf="product.stock > 0 else outOfStock" class="product-buy mt-4">
           <span class="fw-bold me-1">Stock:</span>
           <span>disponemos de {{product.stock}} unidades a este precio.</span>
-         <div>
-           <input type="number" [(ngModel)]="quantity">
-         </div>
-          <div class="mt-4">
+          <div class="mt-4" *ngIf="alreadyInCart else inCart">
+            <div>
+              <input type="number" [(ngModel)]="quantity">
+            </div>
             <button class="me-2 mb-5" (click)="addToCart(product.id!,product.image!,product.name,product.categoryName!,product.price)"><span>Añadir al Carrito</span></button>
           </div>
         </div>
@@ -63,6 +63,12 @@
 
 <ng-template #loading>
   <div class="spinner-grow spinner-grow-sm"></div>
+</ng-template>
+
+<ng-template #inCart>
+  <div class="mt-4">
+    <button class="me-2 mb-5" disabled><span>Añadido al carrito</span></button>
+  </div>
 </ng-template>
 
 <p>product works</p>

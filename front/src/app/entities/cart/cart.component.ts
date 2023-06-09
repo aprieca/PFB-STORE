@@ -3,6 +3,7 @@ import {CartService} from "./cart.service";
 import {AuthService} from "../../config/services/auth-service/auth.service";
 import {CartItem} from "./model/cart.model";
 import * as _ from 'lodash';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-cart',
@@ -21,7 +22,7 @@ export class CartComponent implements OnInit{
   totalPrice:number=0;
 
 
-  constructor(private cartService : CartService,private authService:AuthService) {
+  constructor(private cartService : CartService,private authService:AuthService,private router:Router) {
   }
 
   ngOnInit(): void {
@@ -92,6 +93,11 @@ export class CartComponent implements OnInit{
         console.log(err)
       }
     })
+  }
+
+  startOrder():void{
+    this.cartService.setCartData(this.cartItems);
+    this.router.navigate(['order'])
   }
 
 }
