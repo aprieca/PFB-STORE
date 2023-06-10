@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class FavoritesController {
+public class FavoritesRestController {
 
     private final FavoriteService favoriteService;
 

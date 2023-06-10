@@ -13,6 +13,7 @@ export class AuthService {
   name  = new BehaviorSubject("")
 
   cookie : string = this.cookieService.get("auth");
+  authorities : any[]=[];
 
 
   constructor(private cookieService : CookieService) {
@@ -21,7 +22,6 @@ export class AuthService {
   checkAuthentication():any{
     if(this.checkCookie()){
       this.authenticated.next(true);
-      console.log("auth actualizada");
     }
   }
 
@@ -38,6 +38,12 @@ export class AuthService {
     let decodedCookie:any = jwtDecode(this.cookie)
     console.log(decodedCookie.sub)
     return decodedCookie.sub
+  }
+
+  getRole(): any[]{
+    let decodedCookie:any = jwtDecode(this.cookie)
+    this.authorities= decodedCookie.authorities
+    return this.authorities.map(authorities=>authorities.authority)
   }
 
   getName():string{

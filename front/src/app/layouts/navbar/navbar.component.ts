@@ -11,6 +11,7 @@ export class NavbarComponent implements OnInit{
 
   authenticated : boolean = false;
   firstname : string = "";
+  role :string = "";
 
   constructor(public authService : AuthService,private router : Router) {
   }
@@ -20,17 +21,17 @@ export class NavbarComponent implements OnInit{
     this.authService.authenticated.subscribe({
       next: response => this.authenticated = response
     });
-    this.authService.name.subscribe({
-      next: response => this.firstname = response
-    });
-    if( this.authenticated){
-      this.firstname = this.authService.getName()
+    if(this.authenticated){
+      this.role = this.authService.getRole().toString()
     }
+  }
+
+  getName():string{
+    return this.authService.getName();
   }
 
   isAuthenticated():void{
     this.authService.checkAuthentication()
-    console.log("called navbar method")
     }
 
   logoutUser():void{

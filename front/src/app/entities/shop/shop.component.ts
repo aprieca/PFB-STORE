@@ -8,6 +8,8 @@ import {Favorite} from "../favorite/model/favorite.model";
 import {AuthService} from "../../config/services/auth-service/auth.service";
 import {CartService} from "../cart/cart.service";
 import {CartItem} from "../cart/model/cart.model";
+import {MessageService} from "primeng/api";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-shop',
@@ -21,16 +23,22 @@ export class ShopComponent implements OnInit {
   favorites?:Favorite[];
   userId?:number;
   cartItem! :CartItem;
+  cartItems? : CartItem[]
+  authenticated? : boolean;
 
   constructor(private itemService: ItemService, private favoriteService:FavoriteService, private authService:AuthService
-  ,private cartService:CartService) {
+  ,private cartService:CartService,private messageService:MessageService,private route:Router) {
   }
 
   ngOnInit(): void {
     this.getItemsByCategory()
-    this.getUserId()
+    this.checkAuthentication();
+    if(this.authenticated){
+      this.getUserId()
+    }
     if(this.userId){
       this.getFavoritesByUser(this.userId)
+      this.getCartItems(this.userId)
     }
   }
 
@@ -39,7 +47,15 @@ export class ShopComponent implements OnInit {
       catchError(error => {
         console.log("Error al cargar los productos de la categoría", error)
         return throwError(() => error);
-      }),
+      })
+    )
+  }
+
+  getCartItems(userId:number){
+    this.cartService.getUserCart(userId).subscribe({
+      next:(items)=>this.cartItems = items,
+      error:(err)=>console.log(err)
+      }
     )
   }
 
@@ -54,6 +70,9 @@ export class ShopComponent implements OnInit {
   }
 
   insertFavorite(favorite:Favorite):void{
+    if(!this.authenticated){
+      this.route.navigate(['login'])
+    }
     this.favoriteService.insertFavorite(favorite).subscribe({
       next:(favorite)=> {
         this.favorites?.push(favorite)
@@ -67,12 +86,24 @@ export class ShopComponent implements OnInit {
   }
 
   addToCartFixedQuantity(itemId:number,image:string,name:string,categoryName:string,price:number):void{
-    this.cartItem = new CartItem(itemId,this.userId!,1,image,name,categoryName,price)
-    this.cartService.addToCart(this.cartItem).subscribe({
-      next:(response)=>console.log(response),
-      error:(err)=>console.log(err)
-    })
-    console.log("item addeded to cart")
+    if(!this.authenticated){
+      this.route.navigate(['login'])
+    }
+    if(this.cartItems?.some((item=>item.itemId == itemId))){
+      console.log("el item ya exite")
+      this.showToastAlreadyInCart()
+    }else{
+      this.cartItem = new CartItem(itemId,this.userId!,1,image,name,categoryName,price)
+      this.cartService.addToCart(this.cartItem).subscribe({
+        next:(response)=>{
+          console.log(response)
+          this.cartItems?.push(this.cartItem)
+          this.showToastAddedToCart()}
+        ,
+        error:(err)=>console.log(err)
+      })
+      console.log("item addeded to cart")
+    }
   }
 
   createFavorite(itemId:number, userId:number):void{
@@ -114,5 +145,22 @@ export class ShopComponent implements OnInit {
     let favorite = this.favorites?.find((favorite) => favorite.itemId === itemId);
     return favorite?.id;
   }
+
+  showToastAddedToCart():void{
+    this.messageService.add({severity:'success', summary: 'Articulo Añadido al Carrito', detail: 'Articulo añadido al carrito correctamente'});
+  }
+  showToastAlreadyInCart():void{
+    this.messageService.add({severity:'warn', summary: 'Articulo ya existe en el carrito', detail: 'Este artículo ya ha sido añadido al carrito'});
+  }
+
+  checkAuthentication() {
+    this.authService.checkAuthentication();
+    this.authService.authenticated.subscribe({
+      next: (response) => this.authenticated = response,
+      error: (err) => console.log(err)
+    })
+  }
+
+
 
 }

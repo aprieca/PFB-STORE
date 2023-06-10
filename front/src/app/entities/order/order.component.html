@@ -1,0 +1,45 @@
+<!--
+<div class="container form form-outline mt-5">
+  <div class="row justify-content-lg-center">
+    <div class="col-lg-6">
+      <form *ngIf="user" #registerForm="ngForm" name="registerForm" role="form" novalidate autocomplete="off">
+        <p class="h4 mb-3">Registro Usuarios</p>
+        <div class="form-group">
+          <label for="address" class="visually-hidden">Nombre</label>
+          <input name="firstname" [(ngModel)]="order.firstname" id="address"  #address="ngModel" placeholder="Nombre" type="text" class="form-control mb-2" minlength="3" maxlength="20" required>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName" class="visually-hidden">Apellidos</label>
+          <input name="lastName" [(ngModel)]="user.lastname"  id="lastName" #lastname="ngModel" placeholder="Apellidos" type="text" class="form-control mb-2" minlength="3" required>
+        </div>
+        <div *ngIf="(lastname.dirty&&lastname.errors)">
+          <small class="form-text text-danger" *ngIf="lastname.errors['required']">
+            Este campo es requerido</small>
+
+          <small class="form-text text-danger" *ngIf="lastname.errors['minlength']">
+            Este campo tiene que tener más de 3 caracteres</small>
+        </div>
+        <div class="form-group">
+          <label for="phone" class="visually-hidden">Teléfono</label>
+          <input name="phone" [(ngModel)]="user.phone"  id="phone" #phone="ngModel" placeholder="Teléfono" type="tel" class="form-control mb-2" pattern="\d{9}" required>
+        </div>
+        <div *ngIf="(phone.dirty&&phone.errors)">
+          <small class="form-text text-danger" *ngIf="phone.errors['pattern']">
+            El teléfono es incorrecto, debe tener 9 dígitos</small>
+
+          <small class="form-text text-danger" *ngIf="phone.errors['required']">
+            Este campo es requerido</small>
+
+        <div class="buttonsForm mt-3">
+          <button (click)="registerUser()" [disabled]="registerForm.invalid || password.value != passwordrepeat.value" class="btn btn-lg btn-primary col-12" name="submit" id="submit" type="submit" >Envíar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+-->
+
+
+
+
