@@ -1667,3 +1667,6 @@ select c1_0.id,c1_0.category_name,c1_0.image,c1_0.item_id,c1_0.name,c1_0.price,c
 2023-06-09 20:05:15 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CART_ITEMS" not found; SQL statement:
 SELECT * FROM CART_ITEMS [42102-214]
+2023-06-10 12:30:38 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DROP [*]CART_ITEMS"; expected "TABLE, INDEX, USER, SEQUENCE, CONSTANT, TRIGGER, VIEW, ROLE, ALIAS, SCHEMA, ALL OBJECTS, DOMAIN, TYPE, DATATYPE, AGGREGATE, SYNONYM"; SQL statement:
+DROP CART_ITEMS [42001-214]
