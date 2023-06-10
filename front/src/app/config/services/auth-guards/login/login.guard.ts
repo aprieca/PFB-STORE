@@ -22,7 +22,6 @@ export class LoginGuard {
     this.authService.authenticated.subscribe({
       next: (value) =>{
         this.auth = value;
-        console.log(value)
       } ,
       error:err => console.log(err)
     })

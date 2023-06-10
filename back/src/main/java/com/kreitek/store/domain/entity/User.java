@@ -46,6 +46,12 @@ public class User implements UserDetails {
     @NotNull
     private String role;
 
+    @OneToMany(mappedBy = "user")
+    private Set<CartItem> cartItems;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Favorite> favorites;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(this.role));

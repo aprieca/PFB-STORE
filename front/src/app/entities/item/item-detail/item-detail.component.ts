@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ItemService} from "../service/item.service";
-import {Observable, throwError} from "rxjs";
+import {Observable} from "rxjs";
 import {Item} from "../model/item.model";
 import {ActivatedRoute, Router} from "@angular/router";
-import {catchError} from "rxjs/operators";
 import {CartItem} from "../../cart/model/cart.model";
 import {CartService} from "../../cart/cart.service";
 import {AuthService} from "../../../config/services/auth-service/auth.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-item-detail',
@@ -21,29 +21,28 @@ export class ItemDetailComponent implements OnInit {
   cartItems?: CartItem[]
   userId?: number;
   quantity: number = 1;
+  authenticated?: boolean;
 
   constructor(private itemService: ItemService, private activatedRoute: ActivatedRoute, private cartService: CartService,
-              private authService: AuthService, private route: Router) {
+              private authService: AuthService, private route: Router,private messageService:MessageService) {
   }
 
   ngOnInit(): void {
+    this.checkAuthentication();
     this.itemId = this.activatedRoute.snapshot.paramMap.get('itemId') ?? undefined
     if (this.itemId) {
       this.checkIfAlreadyInCart()
       console.log(this.itemId)
-      this.item$ = this.itemService.getItemById(parseInt(this.itemId)).pipe(
-        catchError(error => {
-          console.log("Error al cargar los productos de la categoría", error)
-          return throwError(() => error);
-        }),
-      );
+      this.item$ = this.itemService.getItemById(parseInt(this.itemId))
     }
-    this.getUserId();
+    if (this.authenticated) {
+      this.getUserId();
+    }
     if (this.userId) {
       this.getCartItems(this.userId)
       console.log(this.cartItems)
-
     }
+
   }
 
   getCartItems(userId: number) {
@@ -55,6 +54,9 @@ export class ItemDetailComponent implements OnInit {
   }
 
   addToCart(itemId: number, image: string, name: string, categoryName: string, price: number): void {
+    if (!this.authenticated) {
+      this.route.navigate(['login'])
+    }
     if (this.cartItems?.some((item => item.itemId == itemId))) {
       console.log("el item ya exite")
     } else {
@@ -62,6 +64,7 @@ export class ItemDetailComponent implements OnInit {
       this.cartService.addToCart(this.cartItem).subscribe({
         next: (response) => {
           console.log(response)
+          this.showToastAddedToCart()
           this.cartItems?.push(this.cartItem)
           this.route.navigate(['/cart'])
         },
@@ -77,11 +80,23 @@ export class ItemDetailComponent implements OnInit {
     this.userId = this.authService.getId();
   }
 
-  checkIfAlreadyInCart() :boolean {
+  checkIfAlreadyInCart(): boolean {
     if (this.cartItems?.some((cartItem) => cartItem.itemId == parseInt(this.itemId!))) {
       return true;
     }
     return false;
+  }
+
+  checkAuthentication() {
+    this.authService.checkAuthentication();
+    this.authService.authenticated.subscribe({
+      next: (response) => this.authenticated = response,
+      error: (err) => console.log(err)
+    })
+  }
+
+  showToastAddedToCart():void{
+    this.messageService.add({severity:'success', summary: 'Articulo Añadido al Carrito', detail: 'Articulo añadido al carrito correctamente'});
   }
 }
 

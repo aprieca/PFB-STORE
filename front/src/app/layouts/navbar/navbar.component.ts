@@ -21,9 +21,8 @@ export class NavbarComponent implements OnInit{
     this.authService.authenticated.subscribe({
       next: response => this.authenticated = response
     });
-    if( this.authenticated){
+    if(this.authenticated){
       this.role = this.authService.getRole().toString()
-      console.log(this.role)
     }
   }
 
@@ -33,7 +32,6 @@ export class NavbarComponent implements OnInit{
 
   isAuthenticated():void{
     this.authService.checkAuthentication()
-    console.log("called navbar method")
     }
 
   logoutUser():void{

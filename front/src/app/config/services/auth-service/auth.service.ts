@@ -22,7 +22,6 @@ export class AuthService {
   checkAuthentication():any{
     if(this.checkCookie()){
       this.authenticated.next(true);
-      console.log("auth actualizada");
     }
   }
 
@@ -43,7 +42,6 @@ export class AuthService {
 
   getRole(): any[]{
     let decodedCookie:any = jwtDecode(this.cookie)
-    console.log(decodedCookie.sub)
     this.authorities= decodedCookie.authorities
     return this.authorities.map(authorities=>authorities.authority)
   }

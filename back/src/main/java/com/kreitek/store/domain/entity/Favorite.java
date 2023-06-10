@@ -22,7 +22,6 @@ public class Favorite {
     @NotNull
     private Long itemId;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name ="user_id",nullable = false)
     private User user;

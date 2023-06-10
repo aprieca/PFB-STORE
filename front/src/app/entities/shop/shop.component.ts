@@ -9,6 +9,7 @@ import {AuthService} from "../../config/services/auth-service/auth.service";
 import {CartService} from "../cart/cart.service";
 import {CartItem} from "../cart/model/cart.model";
 import {MessageService} from "primeng/api";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-shop',
@@ -23,14 +24,18 @@ export class ShopComponent implements OnInit {
   userId?:number;
   cartItem! :CartItem;
   cartItems? : CartItem[]
+  authenticated? : boolean;
 
   constructor(private itemService: ItemService, private favoriteService:FavoriteService, private authService:AuthService
-  ,private cartService:CartService,private messageService:MessageService) {
+  ,private cartService:CartService,private messageService:MessageService,private route:Router) {
   }
 
   ngOnInit(): void {
     this.getItemsByCategory()
-    this.getUserId()
+    this.checkAuthentication();
+    if(this.authenticated){
+      this.getUserId()
+    }
     if(this.userId){
       this.getFavoritesByUser(this.userId)
       this.getCartItems(this.userId)
@@ -65,6 +70,9 @@ export class ShopComponent implements OnInit {
   }
 
   insertFavorite(favorite:Favorite):void{
+    if(!this.authenticated){
+      this.route.navigate(['login'])
+    }
     this.favoriteService.insertFavorite(favorite).subscribe({
       next:(favorite)=> {
         this.favorites?.push(favorite)
@@ -78,6 +86,9 @@ export class ShopComponent implements OnInit {
   }
 
   addToCartFixedQuantity(itemId:number,image:string,name:string,categoryName:string,price:number):void{
+    if(!this.authenticated){
+      this.route.navigate(['login'])
+    }
     if(this.cartItems?.some((item=>item.itemId == itemId))){
       console.log("el item ya exite")
       this.showToastAlreadyInCart()
@@ -141,5 +152,15 @@ export class ShopComponent implements OnInit {
   showToastAlreadyInCart():void{
     this.messageService.add({severity:'warn', summary: 'Articulo ya existe en el carrito', detail: 'Este artículo ya ha sido añadido al carrito'});
   }
+
+  checkAuthentication() {
+    this.authService.checkAuthentication();
+    this.authService.authenticated.subscribe({
+      next: (response) => this.authenticated = response,
+      error: (err) => console.log(err)
+    })
+  }
+
+
 
 }
